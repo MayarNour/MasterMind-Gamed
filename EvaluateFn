@@ -1,0 +1,286 @@
+package mastermind
+
+data class Evaluation(val rightPosition: Int, val wrongPosition: Int)
+
+fun evaluateGuess(secret: String, guess: String): Evaluation {
+
+    var rp: Int=0
+    var wp: Int=0
+    var repeated: Int=0
+    val pa: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pb: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pc: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pd: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pe: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pf: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    var a:Int =0
+    var b:Int =0
+    var c:Int =0
+    var d:Int =0
+    var e:Int =0
+    var f:Int =0
+    val pA: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pB: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pC: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pD: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pE: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    val pF: Array<Int> = arrayOf<Int>(-1,-1,-1,-1)
+    var A:Int =0
+    var B:Int =0
+    var C:Int =0
+    var D:Int =0
+    var E:Int =0
+    var F:Int =0
+
+    for(i in 0 until 4)
+    {
+        when(secret[i])
+        {
+           'A'-> { pa[i]=i; a++ }
+           'B'-> { pb[i]=i; b++ }
+           'C'-> { pc[i]=i; c++ }
+           'D'-> { pd[i]=i; d++ }
+           'E'-> { pe[i]=i; e++ }
+           'F'-> { pf[i]=i; f++ }
+        }
+        when(guess[i])
+        {
+            'A'-> { pA[i]=i; A++ }
+            'B'-> { pB[i]=i; B++ }
+            'C'-> { pC[i]=i; C++ }
+            'D'-> { pD[i]=i; D++ }
+            'E'-> { pE[i]=i; E++ }
+            'F'-> { pF[i]=i; F++ }
+        }
+    }
+
+    if(pa.contentEquals(pA) && a==A && a>0 )
+        rp+=a
+    if(pb.contentEquals(pB) && b==B && b>0)
+        rp+=b
+    if(pc.contentEquals(pC) && c==C && c>0)
+        rp+=c
+    if(pd.contentEquals(pD) && d==D && d>0)
+        rp+=d
+    if(pe.contentEquals(pE) && e==E && e>0)
+        rp+=e
+    if(pf.contentEquals(pF) && f==F && f>0)
+        rp+=f
+
+    if(a>0 && a==A && !pa.contentEquals(pA))
+    {
+        for(g in 0 until 4)
+            if(pa[g]!=pA[g]&&pa[g]!=-1)
+                wp++
+    }
+    if(b>0 && b==B && !pb.contentEquals(pB))
+    {
+        for(g in 0 until 4)
+            if(pb[g]!=pB[g]&&pb[g]!=-1)
+                wp++
+    }
+    if(c>0 && c==C && !pc.contentEquals(pC))
+    {
+        for(g in 0 until 4)
+            if(pc[g]!=pC[g]&&pc[g]!=-1)
+                wp++
+    }
+    if(d>0 && d==D && !pd.contentEquals(pD))
+    {
+        for(g in 0 until 4)
+            if(pd[g]!=pD[g]&&pd[g]!=-1)
+                wp++
+    }
+    if(e>0 && e==E && !pe.contentEquals(pE))
+    {
+        for(g in 0 until 4)
+            if(pe[g]!=pE[g]&&pe[g]!=-1)
+                wp++
+    }
+    if(f>0 && f==F && !pf.contentEquals(pF))
+    {
+        for(g in 0 until 4)
+            if(pf[g]!=pF[g]&&pf[g]!=-1)
+                wp++
+    }
+
+    if(a>0 && A>0 && a!=A && !pa.contentEquals(pA))
+    {
+        for(g in 0 until 4)
+        {
+            if((pa[g]==pA[g])&&pa[g]!=-1)
+            {
+                rp++
+                repeated++
+            }
+        }
+        if(repeated==0)
+        {
+            if(a>A)
+                wp += A
+            else wp += a
+        }
+        if(repeated>0)
+        {
+            if(a>A)
+                wp += A-repeated
+            else wp += a-repeated
+        }
+    }
+    if(b>0 && B>0 && b!=B && !pb.contentEquals(pB))
+    {
+        for(g in 0 until 4)
+        {
+            if((pb[g]==pB[g])&&pb[g]!=-1)
+            {
+                rp++
+                repeated++
+            }
+        }
+        if(repeated==0)
+        {
+            if(b>B)
+                wp += B
+            else wp += b
+        }
+        if(repeated>0)
+        {
+            if(b>B)
+                wp += B-repeated
+            else wp += b-repeated
+        }
+    }
+    if(c>0 && C>0 && c!=C && !pc.contentEquals(pC))
+    {
+        for(g in 0 until 4)
+        {
+            if((pc[g]==pC[g])&&pc[g]!=-1)
+            {
+                rp++
+                repeated++
+            }
+        }
+        if(repeated==0)
+        {
+            if(c>C)
+                wp += C
+            else wp += c
+        }
+        if(repeated>0)
+        {
+            if(c>C)
+                wp += C-repeated
+            else wp += c-repeated
+        }
+    }
+    if(d>0 && D>0 && d!=D && !pd.contentEquals(pD))
+    {
+        for(g in 0 until 4)
+        {
+            if((pd[g]==pD[g])&&pd[g]!=-1)
+            {
+                rp++
+                repeated++
+            }
+        }
+        if(repeated==0)
+        {
+            if(d>D)
+                wp += D
+            else wp += d
+        }
+        if(repeated>0)
+        {
+            if(d>D)
+                wp += D-repeated
+            else wp += d-repeated
+        }
+    }
+    if(e>0 && E>0  && e!=E && !pe.contentEquals(pE))
+    {
+        for(g in 0 until 4)
+        {
+            if((pe[g]==pE[g])&&pe[g]!=-1)
+            {
+                rp++
+                repeated++
+            }
+
+        }
+        if(repeated==0)
+        {
+            if(e>E)
+                wp += E
+            else wp += e
+        }
+        if(repeated>0)
+        {
+            if(e>E)
+                wp += E-repeated
+            else wp += e-repeated
+        }
+
+    }
+    if(f>0 && F>0 && f!=F && !pf.contentEquals(pF))
+    {
+        for(g in 0 until 4)
+        {
+            if((pf[g]==pF[g])&&pf[g]!=-1)
+            {
+                rp++
+                repeated++
+            }
+        }
+        if(repeated==0)
+        {
+            if(f>F)
+                wp += F
+            else wp += f
+        }
+        if(repeated>0)
+        {
+            if(f>F)
+                wp += F-repeated
+            else wp += f-repeated
+        }
+    }
+
+    if(a>-0 && a==A && !pa.contentEquals(pA))
+    {
+        for(g in 0 until 4)
+            if((pa[g]==pA[g])&&pa[g]!=-1)
+                rp++
+    }
+    if(b>0 && b==B && !pb.contentEquals(pB))
+    {
+        for(g in 0 until 4)
+            if((pb[g]==pB[g])&&pb[g]!=-1)
+                rp++
+    }
+    if(c>0 && c==C && !pc.contentEquals(pC))
+    {
+        for(g in 0 until 4)
+            if((pc[g]==pC[g])&&pc[g]!=-1)
+                rp++
+    }
+    if(d>0 && d==D && !pd.contentEquals(pD))
+    {
+        for(g in 0 until 4)
+            if((pd[g]==pD[g])&&pd[g]!=-1)
+                rp++
+    }
+    if(e>0 && e==E && !pe.contentEquals(pE))
+    {
+        for(g in 0 until 4)
+            if((pe[g]==pE[g])&&pe[g]!=-1)
+                rp++
+    }
+    if(f>0 && f==F && !pf.contentEquals(pF))
+    {
+        for(g in 0 until 4)
+            if((pf[g]==pF[g])&&pf[g]!=-1)
+                rp++
+    }
+
+    return Evaluation(rp,wp)
+}
